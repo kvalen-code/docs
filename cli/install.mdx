@@ -1,0 +1,69 @@
+---
+title: "安装 CLI"
+description: "安装 ReCodex 与 OpenAI Codex 客户端。"
+icon: "download"
+---
+
+# 安装 CLI
+
+ReCodex CLI 负责设备登录、托管配置、状态检查和诊断。Codex CLI 是 OpenAI 的开发工具；两者需要分别安装。
+
+## 安装 ReCodex
+
+从 [recodex.dev](https://recodex.dev) 的下载页面获取与你的操作系统和 CPU 架构匹配的正式版本。下载后，把 `recodex`（Windows 为 `recodex.exe`）放入 `PATH` 可访问的目录。
+
+<Warning>
+  不要从聊天记录、网盘或未知镜像下载客户端。正式下载地址和校验信息以 recodex.dev 展示为准。
+</Warning>
+
+验证安装：
+
+```bash
+recodex version
+```
+
+## 安装 Codex
+
+<CodeGroup>
+
+```bash macOS / Linux
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
+```powershell Windows
+powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
+```
+
+</CodeGroup>
+
+如果 Windows 独立安装器不可用，也可以按 OpenAI 官方说明使用 npm：
+
+```powershell
+npm install -g @openai/codex
+```
+
+验证 Codex：
+
+```bash
+codex --version
+```
+
+## IDE 与桌面端
+
+Codex IDE 扩展和桌面端会读取同一用户目录下的 Codex 配置。完成 `recodex login` 后，请重启已打开的 IDE 或桌面端，让它重新加载环境与托管配置。
+
+## 升级
+
+```bash
+recodex update
+```
+
+`recodex update` 从签名发布清单安全更新当前程序。Codex 本身请使用 OpenAI 官方安装器或包管理器升级。
+
+## 卸载
+
+```bash
+recodex uninstall
+```
+
+卸载会先撤销当前设备、恢复原始 Codex 配置，再删除 ReCodex 客户端状态。程序文件可以随后手动删除。

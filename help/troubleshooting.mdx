@@ -1,0 +1,97 @@
+---
+title: "排查问题"
+description: "按症状排查安装、授权、额度、设备和账单问题。"
+icon: "life-ring"
+---
+
+# 排查问题
+
+先记录错误发生时间与操作系统，然后从基础状态开始，不要反复重装或泄露凭据。
+
+```bash
+recodex status
+recodex doctor
+```
+
+## 装不上
+
+### 找不到 `recodex`
+
+确认程序位于 `PATH` 中，重新打开终端后运行 `recodex version`。Windows 还应确认文件没有被浏览器改名或隔离。
+
+### 找不到 `codex`
+
+macOS / Linux：
+
+```bash
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
+Windows：
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
+```
+
+## ChatGPT 授权失败
+
+- 确认从当前 ReCodex 登录会话重新生成链接。
+- 只在目标设备和受信浏览器中打开。
+- 链接过期、已使用或被取消时重新生成。
+- 客户端未刷新时彻底退出后重开。
+- 不要把授权链接粘贴到支持工单。
+
+## `recodex login` 无法完成
+
+- 浏览器未打开：使用终端本次输出的验证地址。
+- 验证码过期：重新运行 `recodex login`。
+- 达到设备上限：按提示退出旧设备或在网页设备页撤销。
+- 批准后终端仍等待：保持终端运行，检查网络后重新发起一次流程。
+
+## Codex 报 401 或 403
+
+先运行：
+
+```bash
+recodex status
+recodex doctor
+```
+
+401 或凭据过期通常需要重新运行 `recodex login`。403 可能来自订阅、余额、配置或上游账号状态，不要把所有 403 都解释为封号。
+
+## 429 或额度耗尽
+
+429 通常表示请求频率或用量窗口限制。查看 Dashboard 与 `recodex status`，等待窗口恢复。不要连续重试，也不要用 429 触发换号判断。
+
+## 配置冲突
+
+```bash
+recodex doctor --fix
+```
+
+`--fix` 只处理可安全自动修复的问题。若报告 `config.toml` 存在重复键，先备份并删除你手工添加、与 ReCodex 托管块重复的字段。
+
+## 设备问题
+
+在账户设备页检查当前机器是否存在、最近活动是否更新。撤销当前设备后，需要重新授权 ChatGPT 或再次运行 `recodex login`。
+
+## 支付成功但订阅不可用
+
+确认订单不是处理中，刷新账单和订阅页面并重新登录。仍未生效时提交订单号、支付时间和页面状态，不提交支付密码或完整付款凭证。
+
+## 收集脱敏诊断
+
+```bash
+recodex doctor --json
+recodex logs --limit 50
+```
+
+JSON 与日志用于描述稳定状态和最近操作。发送前仍应人工检查文件路径、项目名和其他个人信息。
+
+## 还是不行？
+
+提交支持请求时包含：发生时间（到分钟）、操作系统、`recodex version`、脱敏错误分类和最短复现步骤。
+
+<Warning>
+  不要发送原始密钥、设备码、ChatGPT 授权链接、密码、数据库连接串或未脱敏日志。
+</Warning>

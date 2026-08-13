@@ -1,0 +1,77 @@
+---
+title: "命令参考"
+description: "ReCodex CLI 的全部命令、参数和环境变量。"
+icon: "terminal"
+---
+
+# 命令参考
+
+## 用法
+
+```text
+recodex [--lang zh|en] [--api URL] <command>
+```
+
+## 子命令一览
+
+| 命令 | 作用 |
+| --- | --- |
+| `recodex login` | 使用设备码登录并写入托管配置与凭据 |
+| `recodex logout` | 撤销当前设备并恢复原始配置 |
+| `recodex uninstall` | 注销、恢复配置并删除全部 ReCodex 客户端状态 |
+| `recodex status` | 查看登录、配置、订阅和用量状态 |
+| `recodex refresh` | 不重新登录，重新获取托管配置 |
+| `recodex update` | 从签名发布清单更新当前程序 |
+| `recodex doctor` | 诊断 Codex、托管配置与网关 |
+| `recodex doctor --fix` | 尝试修复可安全自动修复的问题，再重新诊断 |
+| `recodex doctor --json` | 输出适合自动化读取的脱敏 JSON |
+| `recodex logs --limit N` | 显示最近 N 条脱敏诊断记录，默认 50 |
+| `recodex version` | 显示客户端版本 |
+
+## 常用流程
+
+```bash
+# 首次登录
+recodex login
+
+# 检查状态
+recodex status
+
+# 自动诊断
+recodex doctor
+
+# 更新托管配置
+recodex refresh
+
+# 安全退出并恢复原配置
+recodex logout
+```
+
+## 全局参数
+
+### `--lang zh|en`
+
+设置当前命令的输出语言。默认使用中文。
+
+```bash
+recodex --lang en status
+```
+
+### `--api URL`
+
+覆盖 ReCodex API 根地址，仅用于已获授权的测试、预发布或自托管环境。普通用户不要修改。
+
+## 环境变量
+
+| 变量 | 作用 |
+| --- | --- |
+| `RECODEX_LANG` | 默认输出语言：`zh` 或 `en` |
+| `RECODEX_API` | 覆盖 API 根地址；普通用户保持默认 |
+
+## 日志
+
+```bash
+recodex logs --limit 50
+```
+
+日志输出会进行脱敏，但发送给支持团队前仍应检查其中是否包含项目名、文件路径或其他不希望分享的信息。
