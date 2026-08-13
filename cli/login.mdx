@@ -1,0 +1,71 @@
+---
+title: "登录与授权"
+description: "为 ChatGPT 客户端授权，并登录 Codex 设备。"
+icon: "right-to-bracket"
+---
+
+# 登录与授权
+
+ChatGPT 客户端和 Codex 使用不同入口。前者使用 ReCodex 动态授权链接，后者使用 `recodex login` 的设备流程。
+
+## ChatGPT 客户端授权
+
+<Steps>
+  <Step title="登录账户">
+    访问 [recodex.dev](https://recodex.dev) 并登录。
+  </Step>
+  <Step title="选择 ChatGPT 授权">
+    在账户页面发起客户端授权，系统会生成一次性的动态授权链接。
+  </Step>
+  <Step title="在目标设备打开">
+    只在你准备使用 ChatGPT 的设备上打开链接，按页面提示完成批准。
+  </Step>
+  <Step title="返回客户端">
+    授权完成后回到 ChatGPT 客户端。若状态没有更新，关闭并重新打开客户端。
+  </Step>
+</Steps>
+
+<Warning>
+  ReCodex 不会要求你通过客服发送 ChatGPT 密码。动态授权链接也不应分享给任何人。
+</Warning>
+
+## Codex 设备登录
+
+```bash
+recodex login
+```
+
+终端会显示验证码与验证地址，并尝试自动打开浏览器。登录 ReCodex 后确认套餐与当前设备，随后等待终端显示成功。
+
+### 浏览器没有打开
+
+复制终端打印的验证地址到浏览器。只使用本次 `recodex login` 输出的地址，不使用教程截图里的旧链接。
+
+### 达到设备上限
+
+客户端会列出已登记设备。输入要退出的旧设备编号，ReCodex 会撤销旧会话并继续当前登录；输入 `q` 可取消。
+
+### 配置已写入但仍报错
+
+如果终端提示需要重启，请彻底关闭并重新打开终端、IDE 或桌面端，然后运行：
+
+```bash
+recodex status
+recodex doctor
+```
+
+## 刷新托管配置
+
+```bash
+recodex refresh
+```
+
+当服务端节点或参数发生变化时，`refresh` 会重新获取配置，不需要重新登录或升级客户端。
+
+## 退出登录
+
+```bash
+recodex logout
+```
+
+ReCodex 会尽力撤销服务端会话，清除持久化凭据，并恢复登录前备份的 Codex 配置。若网络暂时不可用，本地恢复仍会继续。

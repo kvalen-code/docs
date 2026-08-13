@@ -1,0 +1,53 @@
+---
+title: "常见问题"
+description: "关于 ChatGPT、Codex、授权、设备和订阅的常见问题。"
+icon: "circle-question"
+---
+
+# 常见问题
+
+<AccordionGroup>
+  <Accordion title="可以直接使用 ChatGPT 客户端吗？">
+    可以。登录 ReCodex 后，在账户页面获取为当前会话生成的动态授权链接，在目标设备完成授权，再返回 ChatGPT 客户端使用。
+  </Accordion>
+
+  <Accordion title="支持哪些 Codex 入口？">
+    ReCodex 的托管配置面向 Codex CLI、IDE 扩展和桌面端。完成 `recodex login` 后，重启已打开的客户端以重新加载配置。
+  </Accordion>
+
+  <Accordion title="需要自己的 ChatGPT 账号或 API Key 吗？">
+    不需要向 ReCodex 提交个人 ChatGPT 密码，也不需要手工填写 API Key。可用资源由你的 ReCodex 套餐和授权状态决定。
+  </Accordion>
+
+  <Accordion title="授权链接是固定的吗？">
+    不是。ChatGPT 客户端授权链接由 ReCodex 按当前登录会话动态生成，具有时效性。不要收藏旧链接或转发给他人。
+  </Accordion>
+
+  <Accordion title="授权过期怎么办？">
+    ChatGPT 客户端请从 ReCodex 账户重新生成授权链接；Codex 请先运行 `recodex status`，必要时重新执行 `recodex login`。
+  </Accordion>
+
+  <Accordion title="达到设备上限怎么办？">
+    在设备页面撤销不再使用的设备，或在 `recodex login` 提示中选择旧设备退出，再继续当前登录。
+  </Accordion>
+
+  <Accordion title="ReCodex 会覆盖原有 Codex 配置吗？">
+    登录时会写入受管理的配置并保留恢复路径。运行 `recodex logout` 或 `recodex uninstall` 时会恢复登录前的配置。若你手工创建重复字段，`recodex doctor` 会提示冲突。
+  </Accordion>
+
+  <Accordion title="ChatGPT 和 Codex 共用额度吗？">
+    是否共享以及按什么窗口恢复取决于你购买的订阅资源。以 Dashboard 和 `recodex status` 显示的服务端结果为准。
+  </Accordion>
+
+  <Accordion title="遇到 429 就是账号被封吗？">
+    不是。429 通常表示额度或频率限制，应等待窗口恢复并检查状态；不要把所有 429 当成封禁。
+  </Accordion>
+
+  <Accordion title="ReCodex 是 OpenAI 官方产品吗？">
+    不是。ReCodex 是独立服务；OpenAI、ChatGPT 和 Codex 的产品名称及商标归其权利人所有。
+  </Accordion>
+
+  <Accordion title="支持团队会索要哪些信息？">
+    可以提供发生时间、系统版本、`recodex version`、脱敏状态与最短复现步骤。不要提供密码、原始密钥、设备码、授权链接或未脱敏日志。
+  </Accordion>
+</AccordionGroup>
