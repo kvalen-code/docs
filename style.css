@@ -1,0 +1,11 @@
+html[data-current-path="/"] #search-bar-entry,
+html[data-current-path="/"] #assistant-entry,
+html[data-current-path="/index"] #search-bar-entry,
+html[data-current-path="/index"] #assistant-entry {
+  display: none;
+}
+
+html[data-current-path="/"] #navbar > div:nth-child(2),
+html[data-current-path="/index"] #navbar > div:nth-child(2) {
+  max-width: none;
+}
