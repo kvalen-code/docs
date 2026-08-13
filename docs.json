@@ -23,8 +23,8 @@
         "group": "命令行",
         "pages": [
           "cli/install",
-          "cli/commands",
-          "cli/login"
+          "cli/login",
+          "cli/commands"
         ]
       },
       {
