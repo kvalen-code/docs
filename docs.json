@@ -51,6 +51,19 @@
         },
         {
           "language": "zh-Hant",
+          "navbar": {
+            "links": [
+              {
+                "href": "https://recodex.dev",
+                "label": "recodex.dev"
+              }
+            ],
+            "primary": {
+              "type": "button",
+              "label": "開始使用",
+              "href": "/zh-Hant/quickstart"
+            }
+          },
           "pages": [
             "zh-Hant/index",
             {
@@ -90,6 +103,19 @@
         },
         {
           "language": "ru",
+          "navbar": {
+            "links": [
+              {
+                "href": "https://recodex.dev",
+                "label": "recodex.dev"
+              }
+            ],
+            "primary": {
+              "type": "button",
+              "label": "Начать",
+              "href": "/ru/quickstart"
+            }
+          },
           "pages": [
             "ru/index",
             {
