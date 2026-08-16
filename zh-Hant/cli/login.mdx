@@ -1,0 +1,71 @@
+---
+title: "登入與授權"
+description: "為 ChatGPT 客戶端授權，並登入 Codex 裝置。"
+icon: "right-to-bracket"
+---
+
+# 登入與授權
+
+ChatGPT 客戶端和 Codex 使用不同入口。前者使用 ReCodex 動態授權連結，後者使用 `recodex login` 的裝置流程。
+
+## ChatGPT 客戶端授權
+
+<Steps>
+  <Step title="登入帳戶">
+    前往 [recodex.dev](https://recodex.dev) 並登入。
+  </Step>
+  <Step title="選擇 ChatGPT 授權">
+    在帳戶頁面發起客戶端授權，系統會產生一次性的動態授權連結。
+  </Step>
+  <Step title="在目標裝置開啟">
+    只在你準備使用 ChatGPT 的裝置上開啟連結，依頁面提示完成批准。
+  </Step>
+  <Step title="返回客戶端">
+    授權完成後回到 ChatGPT 客戶端。若狀態沒有更新，關閉並重新開啟客戶端。
+  </Step>
+</Steps>
+
+<Warning>
+  ReCodex 不會要求你透過客服傳送 ChatGPT 密碼。動態授權連結也不應分享給任何人。
+</Warning>
+
+## Codex 裝置登入
+
+```bash
+recodex login
+```
+
+終端機會顯示驗證碼與驗證網址，並嘗試自動開啟瀏覽器。登入 ReCodex 後確認方案與目前裝置，隨後等待終端機顯示成功。
+
+### 瀏覽器沒有開啟
+
+複製終端機印出的驗證網址到瀏覽器。只使用本次 `recodex login` 輸出的網址，不使用教學截圖裡的舊連結。
+
+### 達到裝置上限
+
+客戶端會列出已登記裝置。輸入要登出的舊裝置編號，ReCodex 會撤銷舊工作階段並繼續目前的登入；輸入 `q` 可取消。
+
+### 設定已寫入但仍報錯
+
+如果終端機提示需要重啟，請從底關閉並重新開啟終端機、IDE 或桌面端，然後執行：
+
+```bash
+recodex status
+recodex doctor
+```
+
+## 重新取得託管設定
+
+```bash
+recodex refresh
+```
+
+當伺服器端節點或參數發生變化時，`refresh` 會重新取得設定，不需要重新登入或升級客戶端。
+
+## 登出
+
+```bash
+recodex logout
+```
+
+ReCodex 會盡力撤銷伺服器端工作階段，清除持久化憑證，並恢復登入前備份的 Codex 設定。若網路暫時不可用，本地恢復仍會繼續。

@@ -1,0 +1,87 @@
+---
+title: "快速開始"
+description: "使用 ReCodex 授權連結登入 ChatGPT 客戶端，並完成 Codex 安裝與登入。"
+icon: "rocket"
+---
+
+# 快速開始
+
+ReCodex 支援兩種使用方式：透過帳戶頁產生的授權連結直接登入 ChatGPT 客戶端，或安裝 ReCodex CLI 後在 Codex 中使用你的訂閱。
+
+## 使用 ChatGPT 客戶端
+
+<Steps>
+  <Step title="登入 ReCodex">
+    前往 [recodex.dev](https://recodex.dev) 並登入你的帳戶。
+  </Step>
+  <Step title="產生授權連結">
+    在帳戶頁面選擇 ChatGPT 客戶端授權，產生一次性的動態授權連結。
+  </Step>
+  <Step title="在目標裝置開啟">
+    只在準備使用 ChatGPT 的裝置上開啟連結，並依頁面提示批准授權。
+  </Step>
+  <Step title="返回 ChatGPT">
+    回到 ChatGPT 客戶端即可開始使用。狀態沒有更新時，完全關閉後重新開啟客戶端。
+  </Step>
+</Steps>
+
+<Warning>
+  不要分享動態授權連結、驗證碼或 ChatGPT 密碼。ReCodex 客服不會索取這些資訊。
+</Warning>
+
+## 使用 Codex
+
+### 1. 安裝 ReCodex CLI
+
+從 [recodex.dev](https://recodex.dev) 下載與你的系統和架構相符的正式版本，然後驗證：
+
+```bash
+recodex version
+```
+
+### 2. 安裝 Codex
+
+<CodeGroup>
+
+```bash macOS / Linux
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
+```powershell Windows
+powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
+```
+
+</CodeGroup>
+
+### 3. 登入裝置
+
+```bash
+recodex login
+```
+
+終端機會顯示驗證網址與驗證碼，並嘗試開啟瀏覽器。登入 ReCodex 後批准目前的裝置。
+
+### 4. 驗證狀態
+
+```bash
+recodex status
+recodex doctor
+```
+
+狀態正常後執行：
+
+```bash
+codex
+```
+
+## 下一步
+
+<CardGroup cols={2}>
+  <Card title="登入與授權" icon="right-to-bracket" href="/zh-Hant/cli/login">
+    查看 ChatGPT 授權連結和 Codex 裝置登入的完整說明。
+  </Card>
+
+  <Card title="命令參考" icon="terminal" href="/zh-Hant/cli/commands">
+    查看全部 ReCodex CLI 命令、參數與環境變數。
+  </Card>
+</CardGroup>

@@ -1,0 +1,87 @@
+---
+title: "Быстрый старт"
+description: "Войдите в клиент ChatGPT по ссылке авторизации ReCodex и выполните установку и вход в Codex."
+icon: "rocket"
+---
+
+# Быстрый старт
+
+ReCodex поддерживает два сценария: вход в клиент ChatGPT по ссылке авторизации из личного кабинета или установка ReCodex CLI для работы с вашей подпиской в Codex.
+
+## Клиент ChatGPT
+
+<Steps>
+  <Step title="Войдите в ReCodex">
+    Откройте [recodex.dev](https://recodex.dev) и войдите в свой аккаунт.
+  </Step>
+  <Step title="Сгенерируйте ссылку авторизации">
+    На странице аккаунта выберите авторизацию клиента ChatGPT — будет создана одноразовая динамическая ссылка.
+  </Step>
+  <Step title="Откройте на целевом устройстве">
+    Открывайте ссылку только на том устройстве, где будете пользоваться ChatGPT, и подтвердите авторизацию по подсказкам.
+  </Step>
+  <Step title="Вернитесь в ChatGPT">
+    Вернитесь в клиент ChatGPT и начинайте работу. Если статус не обновился, полностью закройте и снова откройте клиент.
+  </Step>
+</Steps>
+
+<Warning>
+  Не делитесь динамическими ссылками авторизации, кодами подтверждения или паролем от ChatGPT. Поддержка ReCodex никогда их не запрашивает.
+</Warning>
+
+## Codex
+
+### 1. Установите ReCodex CLI
+
+Скачайте с [recodex.dev](https://recodex.dev) релиз под вашу систему и архитектуру, затем проверьте:
+
+```bash
+recodex version
+```
+
+### 2. Установите Codex
+
+<CodeGroup>
+
+```bash macOS / Linux
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
+```powershell Windows
+powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
+```
+
+</CodeGroup>
+
+### 3. Войдите с устройства
+
+```bash
+recodex login
+```
+
+В терминале появятся адрес подтверждения и код, браузер откроется автоматически. Войдите в ReCodex и подтвердите текущее устройство.
+
+### 4. Проверьте статус
+
+```bash
+recodex status
+recodex doctor
+```
+
+Если всё в порядке, запустите:
+
+```bash
+codex
+```
+
+## Дальнейшие шаги
+
+<CardGroup cols={2}>
+  <Card title="Вход и авторизация" icon="right-to-bracket" href="/ru/cli/login">
+    Полное описание ссылок авторизации ChatGPT и входа устройств Codex.
+  </Card>
+
+  <Card title="Справочник команд" icon="terminal" href="/ru/cli/commands">
+    Все команды, параметры и переменные окружения ReCodex CLI.
+  </Card>
+</CardGroup>

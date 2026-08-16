@@ -1,0 +1,53 @@
+---
+title: "常見問題"
+description: "關於 ChatGPT、Codex、授權、裝置和訂閱的常見問題。"
+icon: "circle-question"
+---
+
+# 常見問題
+
+<AccordionGroup>
+  <Accordion title="可以直接使用 ChatGPT 客戶端嗎？">
+    可以。登入 ReCodex 後，在帳戶頁面取得為目前工作階段產生的動態授權連結，在目標裝置完成授權，再返回 ChatGPT 客戶端使用。
+  </Accordion>
+
+  <Accordion title="支援哪些 Codex 入口？">
+    ReCodex 的託管設定面向 Codex CLI、IDE 擴充功能和桌面端。完成 `recodex login` 後，重啟已開啟的客戶端以重新載入設定。
+  </Accordion>
+
+  <Accordion title="需要自己的 ChatGPT 帳號或 API Key 嗎？">
+    不需要向 ReCodex 提交個人 ChatGPT 密碼，也不需要手動填寫 API Key。可用資源由你的 ReCodex 方案和授權狀態決定。
+  </Accordion>
+
+  <Accordion title="授權連結是固定的嗎？">
+    不是。ChatGPT 客戶端授權連結由 ReCodex 按目前登入工作階段動態產生，具有時效性。不要收藏舊連結或轉發給他人。
+  </Accordion>
+
+  <Accordion title="授權過期怎麼辦？">
+    ChatGPT 客戶端請從 ReCodex 帳戶重新產生授權連結；Codex 請先執行 `recodex status`，必要時重新執行 `recodex login`。
+  </Accordion>
+
+  <Accordion title="達到裝置上限怎麼辦？">
+    在裝置頁面撤銷不再使用的裝置，或在 `recodex login` 提示中選擇舊裝置登出，再繼續目前的登入。
+  </Accordion>
+
+  <Accordion title="ReCodex 會覆蓋原有 Codex 設定嗎？">
+    登入時會寫入受管理的設定並保留恢復路徑。執行 `recodex logout` 或 `recodex uninstall` 時會恢復登入前的設定。若你手動建立重複欄位，`recodex doctor` 會提示衝突。
+  </Accordion>
+
+  <Accordion title="ChatGPT 和 Codex 共用額度嗎？">
+    是否共用以及按什麼視窗恢復取決於你購買的訂閱資源。以 Dashboard 和 `recodex status` 顯示的伺服器端結果為準。
+  </Accordion>
+
+  <Accordion title="遇到 429 就是帳號被封嗎？">
+    不是。429 通常表示額度或頻率限制，應等待視窗恢復並檢查狀態；不要把所有 429 當成封鎖。
+  </Accordion>
+
+  <Accordion title="ReCodex 是 OpenAI 官方產品嗎？">
+    不是。ReCodex 是獨立服務；OpenAI、ChatGPT 和 Codex 的產品名稱及商標歸其權利人所有。
+  </Accordion>
+
+  <Accordion title="支援團隊會索取哪些資訊？">
+    可以提供發生時間、系統版本、`recodex version`、去敏狀態與最短重現步驟。不要提供密碼、原始金鑰、裝置碼、授權連結或未去敏日誌。
+  </Accordion>
+</AccordionGroup>
