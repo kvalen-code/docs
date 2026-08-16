@@ -1,0 +1,69 @@
+---
+title: "Установка CLI"
+description: "Установка клиентов ReCodex и OpenAI Codex."
+icon: "download"
+---
+
+# Установка CLI
+
+ReCodex CLI отвечает за вход устройства, управляемую конфигурацию, проверку статуса и диагностику. Codex CLI — инструмент разработки от OpenAI; устанавливаются они отдельно.
+
+## Установка ReCodex
+
+Скачайте со страницы загрузок [recodex.dev](https://recodex.dev) релиз под вашу ОС и архитектуру CPU. Затем поместите `recodex` (`recodex.exe` для Windows) в каталог, доступный через `PATH`.
+
+<Warning>
+  Не скачивайте клиент из чатов, облачных дисков или неизвестных зеркал. Официальные адреса загрузки и контрольные суммы публикуются на recodex.dev.
+</Warning>
+
+Проверьте установку:
+
+```bash
+recodex version
+```
+
+## Установка Codex
+
+<CodeGroup>
+
+```bash macOS / Linux
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
+```powershell Windows
+powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
+```
+
+</CodeGroup>
+
+Если автономный установщик для Windows недоступен, можно использовать npm по официальной инструкции OpenAI:
+
+```powershell
+npm install -g @openai/codex
+```
+
+Проверьте Codex:
+
+```bash
+codex --version
+```
+
+## IDE и десктоп
+
+Расширения Codex для IDE и десктопное приложение читают одну и ту же конфигурацию Codex в каталоге пользователя. После `recodex login` перезапустите открытые IDE или десктоп, чтобы они перечитали окружение и конфигурацию.
+
+## Обновление
+
+```bash
+recodex update
+```
+
+`recodex update` безопасно обновляет программу из подписанного манифеста релизов. Сам Codex обновляйте официальным установщиком OpenAI или пакетным менеджером.
+
+## Удаление
+
+```bash
+recodex uninstall
+```
+
+При удалении сначала отзывается текущее устройство, восстанавливается исходная конфигурация Codex, затем удаляется состояние клиента ReCodex. Исполняемый файл можно удалить вручную после этого.

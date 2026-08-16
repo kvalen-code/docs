@@ -1,0 +1,77 @@
+---
+title: "命令參考"
+description: "ReCodex CLI 的全部命令、參數和環境變數。"
+icon: "terminal"
+---
+
+# 命令參考
+
+## 用法
+
+```text
+recodex [--lang zh|en] [--api URL] <command>
+```
+
+## 子命令一覽
+
+| 命令 | 作用 |
+| --- | --- |
+| `recodex login` | 使用裝置碼登入並寫入託管設定與憑證 |
+| `recodex logout` | 撤銷目前裝置並恢復原始設定 |
+| `recodex uninstall` | 登出、恢復設定並刪除全部 ReCodex 客戶端狀態 |
+| `recodex status` | 查看登入、設定、訂閱和用量狀態 |
+| `recodex refresh` | 不重新登入，重新取得託管設定 |
+| `recodex update` | 從簽章發布清單更新目前的程式 |
+| `recodex doctor` | 診斷 Codex、託管設定與閘道 |
+| `recodex doctor --fix` | 嘗試修復可安全自動修復的問題，再重新診斷 |
+| `recodex doctor --json` | 輸出適合自動化讀取的去敏 JSON |
+| `recodex logs --limit N` | 顯示最近 N 筆去敏診斷記錄，預設 50 |
+| `recodex version` | 顯示客戶端版本 |
+
+## 常用流程
+
+```bash
+# 首次登入
+recodex login
+
+# 檢查狀態
+recodex status
+
+# 自動診斷
+recodex doctor
+
+# 更新託管設定
+recodex refresh
+
+# 安全登出並恢復原設定
+recodex logout
+```
+
+## 全域參數
+
+### `--lang zh|en`
+
+設定目前命令的輸出語言。預設使用中文。
+
+```bash
+recodex --lang en status
+```
+
+### `--api URL`
+
+覆蓋 ReCodex API 根位址，僅用於已獲授權的測試、預發布或自行架設環境。一般使用者不要修改。
+
+## 環境變數
+
+| 變數 | 作用 |
+| --- | --- |
+| `RECODEX_LANG` | 預設輸出語言：`zh` 或 `en` |
+| `RECODEX_API` | 覆蓋 API 根位址；一般使用者保持預設 |
+
+## 日誌
+
+```bash
+recodex logs --limit 50
+```
+
+日誌輸出會進行去敏，但傳送給支援團隊前仍應檢查其中是否包含專案名稱、檔案路徑或其他不希望分享的資訊。

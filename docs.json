@@ -8,43 +8,126 @@
                    "dark":  "#70F0AD"
                },
     "favicon":  "/images/favicon.png",
-    "navigation":  {
-                       "pages":  [
-                                     "index",
-                                     {
-                                         "group":  "开始使用",
-                                         "pages":  [
-                                                       "introduction",
-                                                       "quickstart",
-                                                       "how-it-works"
-                                                   ]
-                                     },
-                                     {
-                                         "group":  "命令行",
-                                         "pages":  [
-                                                       "cli/install",
-                                                       "cli/login",
-                                                       "cli/commands"
-                                                   ]
-                                     },
-                                     {
-                                         "group":  "账户",
-                                         "pages":  [
-                                                       "account/subscription",
-                                                       "account/billing",
-                                                       "account/devices",
-                                                       "account/security",
-                                                       "account/affiliate"
-                                                   ]
-                                     },
-                                     {
-                                         "group":  "帮助",
-                                         "pages":  [
-                                                       "help/faq",
-                                                       "help/troubleshooting"
-                                                   ]
-                                     }
-                                 ]
+    "navigation": {
+      "languages": [
+        {
+          "language": "zh-Hans",
+          "pages": [
+            "index",
+            {
+              "group": "开始使用",
+              "pages": [
+                "introduction",
+                "quickstart",
+                "how-it-works"
+              ]
+            },
+            {
+              "group": "命令行",
+              "pages": [
+                "cli/install",
+                "cli/login",
+                "cli/commands"
+              ]
+            },
+            {
+              "group": "账户",
+              "pages": [
+                "account/subscription",
+                "account/billing",
+                "account/devices",
+                "account/security",
+                "account/affiliate"
+              ]
+            },
+            {
+              "group": "帮助",
+              "pages": [
+                "help/faq",
+                "help/troubleshooting"
+              ]
+            }
+          ]
+        },
+        {
+          "language": "zh-Hant",
+          "pages": [
+            "zh-Hant/index",
+            {
+              "group": "開始使用",
+              "pages": [
+                "zh-Hant/introduction",
+                "zh-Hant/quickstart",
+                "zh-Hant/how-it-works"
+              ]
+            },
+            {
+              "group": "命令列",
+              "pages": [
+                "zh-Hant/cli/install",
+                "zh-Hant/cli/login",
+                "zh-Hant/cli/commands"
+              ]
+            },
+            {
+              "group": "帳戶",
+              "pages": [
+                "zh-Hant/account/subscription",
+                "zh-Hant/account/billing",
+                "zh-Hant/account/devices",
+                "zh-Hant/account/security",
+                "zh-Hant/account/affiliate"
+              ]
+            },
+            {
+              "group": "說明",
+              "pages": [
+                "zh-Hant/help/faq",
+                "zh-Hant/help/troubleshooting"
+              ]
+            }
+          ]
+        },
+        {
+          "language": "ru",
+          "pages": [
+            "ru/index",
+            {
+              "group": "Начало работы",
+              "pages": [
+                "ru/introduction",
+                "ru/quickstart",
+                "ru/how-it-works"
+              ]
+            },
+            {
+              "group": "Командная строка",
+              "pages": [
+                "ru/cli/install",
+                "ru/cli/login",
+                "ru/cli/commands"
+              ]
+            },
+            {
+              "group": "Аккаунт",
+              "pages": [
+                "ru/account/subscription",
+                "ru/account/billing",
+                "ru/account/devices",
+                "ru/account/security",
+                "ru/account/affiliate"
+              ]
+            },
+            {
+              "group": "Справка",
+              "pages": [
+                "ru/help/faq",
+                "ru/help/troubleshooting"
+              ]
+            }
+          ]
+        }
+      ]
                    },
     "logo":  {
                  "light":  "/images/recodex-logo.png",

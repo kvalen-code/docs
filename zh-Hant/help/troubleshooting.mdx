@@ -1,0 +1,97 @@
+---
+title: "疑難排解"
+description: "按症狀排查安裝、授權、額度、裝置和帳單問題。"
+icon: "life-ring"
+---
+
+# 疑難排解
+
+先記錄錯誤發生時間與作業系統，然後從基礎狀態開始，不要反覆重裝或洩露憑證。
+
+```bash
+recodex status
+recodex doctor
+```
+
+## 裝不上
+
+### 找不到 `recodex`
+
+確認程式位於 `PATH` 中，重新開啟終端機後執行 `recodex version`。Windows 還應確認檔案沒有被瀏覽器改名或隔離。
+
+### 找不到 `codex`
+
+macOS / Linux：
+
+```bash
+curl -fsSL https://chatgpt.com/codex/install.sh | sh
+```
+
+Windows：
+
+```powershell
+powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
+```
+
+## ChatGPT 授權失敗
+
+- 確認從目前的 ReCodex 登入工作階段重新產生連結。
+- 只在目標裝置和受信瀏覽器中開啟。
+- 連結過期、已使用或被取消時重新產生。
+- 客戶端未更新時徹底退出後重開。
+- 不要把授權連結貼到支援工單。
+
+## `recodex login` 無法完成
+
+- 瀏覽器未開啟：使用終端機本次輸出的驗證網址。
+- 驗證碼過期：重新執行 `recodex login`。
+- 達到裝置上限：按提示登出舊裝置或在網頁裝置頁撤銷。
+- 批准後終端機仍等待：保持終端機執行，檢查網路後重新發起一次流程。
+
+## Codex 報 401 或 403
+
+先執行：
+
+```bash
+recodex status
+recodex doctor
+```
+
+401 或憑證過期通常需要重新執行 `recodex login`。403 可能來自訂閱、餘額、設定或上游帳號狀態，不要把所有 403 都解釋為封號。
+
+## 429 或額度耗盡
+
+429 通常表示請求頻率或用量視窗限制。查看 Dashboard 與 `recodex status`，等待視窗恢復。不要連續重試，也不要用 429 觸發換號判斷。
+
+## 設定衝突
+
+```bash
+recodex doctor --fix
+```
+
+`--fix` 只處理可安全自動修復的問題。若報告 `config.toml` 存在重複鍵，先備份並刪除你手動新增、與 ReCodex 託管區塊重複的欄位。
+
+## 裝置問題
+
+在帳戶裝置頁檢查目前機器是否存在、最近活動是否更新。撤銷目前裝置後，需要重新授權 ChatGPT 或再次執行 `recodex login`。
+
+## 付款成功但訂閱不可用
+
+確認訂單不是處理中，重新整理帳單和訂閱頁面並重新登入。仍未生效時提交訂單編號、付款時間和頁面狀態，不提交支付密碼或完整付款憑證。
+
+## 收集去敏診斷
+
+```bash
+recodex doctor --json
+recodex logs --limit 50
+```
+
+JSON 與日誌用於描述穩定狀態和最近操作。傳送前仍應人工檢查檔案路徑、專案名稱和其他個人資訊。
+
+## 還是不行？
+
+提交支援請求時包含：發生時間（到分鐘）、作業系統、`recodex version`、去敏錯誤分類和最短重現步驟。
+
+<Warning>
+  不要傳送原始金鑰、裝置碼、ChatGPT 授權連結、密碼、資料庫連線字串或未去敏日誌。
+</Warning>
