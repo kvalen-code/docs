@@ -1,6 +1,6 @@
 ---
 title: "命令参考"
-description: "ReCodex CLI 的全部命令、参数和环境变量。"
+description: "ReCodex 命令行的全部命令、参数和环境变量。"
 icon: "terminal"
 ---
 
@@ -9,24 +9,63 @@ icon: "terminal"
 ## 用法
 
 ```text
-recodex [--lang zh|en] [--api URL] <command>
+recodex [--lang zh|en] [--api URL] <命令>
 ```
 
-## 子命令一览
+## 账号与状态
 
 | 命令 | 作用 |
 | --- | --- |
-| `recodex login` | 使用设备码登录并写入托管配置与凭据 |
-| `recodex logout` | 撤销当前设备并恢复原始配置 |
-| `recodex uninstall` | 注销、恢复配置并删除全部 ReCodex 客户端状态 |
-| `recodex status` | 查看登录、配置、订阅和用量状态 |
-| `recodex refresh` | 不重新登录，重新获取托管配置 |
-| `recodex update` | 从签名发布清单更新当前程序 |
-| `recodex doctor` | 诊断 Codex、托管配置与网关 |
-| `recodex doctor --fix` | 尝试修复可安全自动修复的问题，再重新诊断 |
-| `recodex doctor --json` | 输出适合自动化读取的脱敏 JSON |
-| `recodex logs --limit N` | 显示最近 N 条脱敏诊断记录，默认 50 |
+| `recodex login` | 浏览器完成设备授权后登录,并写入托管配置与凭据 |
+| `recodex status` | 登录状态、签发时间、当前网关、配置是否托管、网关可达性,并附上额度 |
+| `recodex account [--json]` | 账号邮箱、账号类型(独享/共享)与套餐名 |
+| `recodex usage [--refresh] [--json]` | 可用额度、已用量、数据时间,以及 5 小时 / 7 天两个窗口 |
+| `recodex logout` | 注销此设备并还原登录前的 Codex 配置 |
+
+<Note>
+  `status` 显示的「登录」一行以**服务端答复**为准:设备在服务端被注销后会显示「凭据已失效」, 而不是照本地文件说「是」。网络不通时不会误判成凭据失效。
+</Note>
+
+## 网关
+
+| 命令 | 作用 |
+| --- | --- |
+| `recodex gateways [list]` | 列出全部网关:延迟、健康状态,并标出当前选中的 |
+| `recodex gateways test` | 重新测一遍各网关延迟 |
+| `recodex gateways use <id>` | 切到指定网关,例如 `recodex gateways use jp` |
+| `recodex gateways auto` | 自动选延迟最低的健康网关 |
+
+```text
+$ recodex gateways
+jp      日本直连    53ms   healthy
+sg      新加坡直连  31ms   healthy selected
+jpcf    日本CF      63ms   healthy
+sgcf    新加坡CF    45ms   healthy
+```
+
+## 安装与诊断
+
+| 命令 | 作用 |
+| --- | --- |
+| `recodex install check` | 检查安装前提;能识别从应用商店(MSIX)安装的 Codex |
+| `recodex install repair` | 修复托管的 Codex 配置 |
+| `recodex doctor` | 逐项体检:客户端安装、托管配置、登录、凭据、网关、订阅与 Codex 可用性 |
+| `recodex doctor --fix` | 先自动修复能安全修的项,再重新体检 |
+| `recodex doctor --json` | 同上但输出 JSON(`schema_version` / `ok` / `checks`),便于脚本判断或贴给客服 |
+| `recodex refresh` | 重新拉取托管配置,不用重新登录 |
+| `recodex logs [--limit N]` | 最近 N 条脱敏诊断日志,默认 50 |
+
+## 维护
+
+| 命令 | 作用 |
+| --- | --- |
+| `recodex update` | 从**签名**发布清单安全更新当前程序 |
 | `recodex version` | 显示客户端版本 |
+| `recodex uninstall` | 注销、还原配置,然后删除全部 ReCodex 客户端数据 |
+
+<Note>
+  `recodex update` 只接受带有效签名的发布清单。签名验不过就直接拒绝更新, 不会退而求其次装一个来源不明的二进制。
+</Note>
 
 ## 常用流程
 
@@ -34,16 +73,16 @@ recodex [--lang zh|en] [--api URL] <command>
 # 首次登录
 recodex login
 
-# 检查状态
+# 看状态和额度
 recodex status
 
-# 自动诊断
-recodex doctor
+# 出问题先自检,能自动修的它会修
+recodex doctor --fix
 
-# 更新托管配置
-recodex refresh
+# 换个更快的网关
+recodex gateways auto
 
-# 安全退出并恢复原配置
+# 退出并还原原配置
 recodex logout
 ```
 
@@ -51,7 +90,7 @@ recodex logout
 
 ### `--lang zh|en`
 
-设置当前命令的输出语言。默认使用中文。
+设置当前命令的输出语言。默认中文。
 
 ```bash
 recodex --lang en status
@@ -59,14 +98,19 @@ recodex --lang en status
 
 ### `--api URL`
 
-覆盖 ReCodex API 根地址，仅用于已获授权的测试、预发布或自托管环境。普通用户不要修改。
+覆盖 ReCodex API 根地址,仅用于已获授权的测试或自托管环境。普通用户不要改。
 
 ## 环境变量
 
 | 变量 | 作用 |
 | --- | --- |
-| `RECODEX_LANG` | 默认输出语言：`zh` 或 `en` |
-| `RECODEX_API` | 覆盖 API 根地址；普通用户保持默认 |
+| `RECODEX_LANG` | 默认输出语言:`zh` 或 `en` |
+| `RECODEX_API` | 覆盖 API 根地址;普通用户保持默认 |
+| `RECODEX_KEY` | 登录时由客户端写入,Codex 用它访问网关。**不要手动改** |
+
+<Warning>
+  Windows 上 `recodex login` 写入的 `RECODEX_KEY` 对**已经打开的**终端不可见 —— 需要新开一个终端窗口。这也是为什么登录后 `doctor` 可能提示凭据问题,而新终端里一切正常。
+</Warning>
 
 ## 日志
 
@@ -74,4 +118,8 @@ recodex --lang en status
 recodex logs --limit 50
 ```
 
-日志输出会进行脱敏，但发送给支持团队前仍应检查其中是否包含项目名、文件路径或其他不希望分享的信息。
+输出是脱敏的 JSON 行,只包含命令名、结果、版本和系统,不含密钥:
+
+```json
+{"time":"2026-08-20T09:11:24Z","event":"command_finished","command":"doctor","result":"success","version":"1.2.55","os":"windows"}
+```

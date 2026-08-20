@@ -1,51 +1,79 @@
 ---
 title: "简介"
-description: "了解 ReCodex 如何连接 ChatGPT 客户端与 Codex。"
+description: "ReCodex 是什么、适合谁、能做什么。"
 icon: "book-open"
 ---
 
 # 简介
 
-ReCodex 面向希望直接使用 ChatGPT 客户端和 Codex 开发工具、又不想手工维护 API Key 与复杂配置的用户。
+ReCodex 让你在**官方 Codex 客户端**里直接用上订阅额度 —— 不用手工维护 API Key,也不用自己拼配置。
+
+它不是 Codex 的替代品,而是在官方客户端之上工作:接管账号与额度显示,并把请求经由就近网关送到你订阅对应的账号。
 
 ## 适合谁
 
-- 需要在 ChatGPT 客户端中工作，并希望通过一次授权快速开始。
-- 使用 Codex CLI、IDE 扩展或桌面端，希望多入口共享同一套托管配置。
-- 需要集中查看订阅、设备、用量与账单状态。
-- 遇到授权失效或设备更换时，希望有清晰的恢复流程。
+- 想在 Codex 里直接开工,不想折腾 `base_url`、API Key 和网关参数。
+- 在 Codex CLI、IDE 扩展、桌面端之间来回切,希望它们共用同一套配置。
+- 需要随时看清楚自己还剩多少额度、绑了哪些设备。
+- 偶尔要切回自己的 ChatGPT 账号,切回来时不想重新登录一遍。
 
 ## 两种使用方式
 
+两种方式**共用同一个账号和同一份额度**,可以只装一个,也可以都装。
+
 <CardGroup cols={2}>
-  <Card title="ChatGPT 客户端" icon="comments">
-    登录 ReCodex 后获取动态授权链接，在客户端完成授权。
+  <Card title="桌面端(推荐)" icon="desktop" href="/quickstart">
+    装一个应用,打开即用。账号、额度、网关、开关都在界面里。
   </Card>
 
-  <Card title="Codex" icon="code">
-    运行 `recodex login`，在浏览器批准设备，由 ReCodex写入托管配置。
+  <Card title="命令行" icon="terminal" href="/cli/install">
+    `recodex` 提供登录、查额度、切网关、自检等命令,适合习惯终端的人。
   </Card>
 </CardGroup>
 
-## ReCodex 帮你做什么
+## 能做什么
 
-ReCodex 负责生成授权入口、管理设备会话、下发 Codex 所需的托管配置，并提供状态、诊断和脱敏日志工具。你不需要向 ReCodex 提交自己的 ChatGPT 密码，也不需要手动拼接网关参数。
+<CardGroup cols={2}>
+  <Card title="额度看得见" icon="chart-simple">
+    账号与 7 天用量直接显示在官方界面里,不用切到网页查。
+  </Card>
+
+  <Card title="网关加速" icon="bolt">
+    多个线路可实测延迟,一键选最快的。
+  </Card>
+
+  <Card title="微信远程控制" icon="comments">
+    在微信里发消息就能让本机的 Codex 干活,支持白名单限定谁能触发。
+  </Card>
+
+  <Card title="界面增强" icon="sliders">
+    会话删除、Markdown 导出、对话居中、模型白名单解锁等十余项,开关随时切。
+  </Card>
+
+  <Card title="官方模式" icon="arrow-right-arrow-left">
+    一键切回自己的 ChatGPT 账号;切回来时配置原样恢复,不用重新登录。
+  </Card>
+
+  <Card title="自动更新" icon="rotate">
+    新版本发布后客户端内一键升级,校验签名与哈希后才替换。
+  </Card>
+</CardGroup>
 
 ## 不会做什么
 
-- 不会把 ReCodex 描述为 OpenAI 官方产品。
+- 不会把 ReCodex 说成 OpenAI 官方产品。
 - 不承诺无限用量、零中断或零风险。
-- 不要求你在支持工单中发送原始密钥、授权链接或未脱敏日志。
-- 不在文档中公开内部账号凭据与运营配置。
+- 不会要你在工单里发送原始密钥、授权码或未脱敏日志。
+- 不会替你保管 ChatGPT 密码 —— 登录走设备授权,你在自己的浏览器里批准。
 
 ## 下一步
 
 <CardGroup cols={2}>
   <Card title="快速开始" icon="rocket" href="/quickstart">
-    完成第一次授权。
+    十分钟内装好并登录。
   </Card>
 
   <Card title="工作原理" icon="diagram-project" href="/how-it-works">
-    了解两条连接链路。
+    了解登录、托管配置和网关怎么串起来。
   </Card>
 </CardGroup>
