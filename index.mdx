@@ -9,6 +9,7 @@ mode: "custom"
     <h1 className="text-3xl font-bold tracking-tight text-gray-950 dark:text-white">
       ChatGPT 与 Codex，开箱即用
     </h1>
+
     <p className="mt-3 text-base leading-7 text-gray-600 dark:text-gray-400">
       ReCodex 提供安全的授权链接，可直接登录 ChatGPT 客户端。安装 CLI、完成一次登录后，即可开始使用 Codex，无需手动配置 API key。
     </p>
@@ -16,26 +17,24 @@ mode: "custom"
 
   <div className="mt-12 grid grid-cols-1 gap-5 sm:grid-cols-2">
     <a href="/quickstart" className="group block no-underline">
-      <div
-        className="flex h-40 items-center justify-center rounded-2xl bg-cover bg-center shadow-sm ring-1 ring-black/5 transition group-hover:-translate-y-0.5 group-hover:shadow-md"
-        style={{ backgroundImage: "url('/images/home-card-texture.png')" }}
-      >
+      <div className="flex h-40 items-center justify-center rounded-2xl bg-cover bg-center shadow-sm ring-1 ring-black/5 transition group-hover:-translate-y-0.5 group-hover:shadow-md" style={{ backgroundImage: "url('/images/home-card-texture.png')" }}>
         <Icon icon="rocket" size={28} color="#ff7a59" />
       </div>
+
       <div className="mt-4 text-base font-semibold text-gray-950 dark:text-white">快速开始</div>
+
       <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">
         使用授权链接登录 ChatGPT，安装 CLI 并运行 Codex——不到两分钟。
       </p>
     </a>
 
     <a href="/cli/commands" className="group block no-underline">
-      <div
-        className="flex h-40 items-center justify-center rounded-2xl bg-cover bg-center shadow-sm ring-1 ring-black/5 transition group-hover:-translate-y-0.5 group-hover:shadow-md"
-        style={{ backgroundImage: "url('/images/home-card-texture.png')" }}
-      >
+      <div className="flex h-40 items-center justify-center rounded-2xl bg-cover bg-center shadow-sm ring-1 ring-black/5 transition group-hover:-translate-y-0.5 group-hover:shadow-md" style={{ backgroundImage: "url('/images/home-card-texture.png')" }}>
         <Icon icon="terminal" size={28} color="#ff7a59" />
       </div>
+
       <div className="mt-4 text-base font-semibold text-gray-950 dark:text-white">命令参考</div>
+
       <p className="mt-1 text-sm leading-6 text-gray-600 dark:text-gray-400">
         所有 ReCodex 命令、参数与环境变量集中一处。
       </p>
@@ -48,12 +47,15 @@ mode: "custom"
     <Card title="工作原理" icon="diagram-project" href="/how-it-works">
       了解 ReCodex 如何连接 ChatGPT 客户端、Codex 与你的订阅。
     </Card>
+
     <Card title="CLI 安装" icon="download" href="/cli/install">
       macOS、Linux 与 Windows 的安装和验证方法。
     </Card>
+
     <Card title="账户与计费" icon="credit-card" href="/account/subscription">
       管理订阅、账单、授权会话与设备。
     </Card>
+
     <Card title="排查问题" icon="life-ring" href="/help/troubleshooting">
       处理授权、登录、设备、额度与连接问题。
     </Card>
