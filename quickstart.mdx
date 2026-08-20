@@ -6,82 +6,107 @@ icon: "rocket"
 
 # 快速开始
 
-ReCodex 支持两种使用方式：通过账户页生成的授权链接直接登录 ChatGPT 客户端，或安装 ReCodex CLI 后在 Codex 中使用你的订阅。
+ReCodex 有两种用法,**共用同一个账号和同一份额度**,按你的习惯选一个即可:
 
-## 使用 ChatGPT 客户端
+- **桌面端(推荐)**:装一个应用,打开就能用,账号和额度直接显示在 Codex 界面里。
+- **命令行**:习惯终端的话,`recodex` 提供登录、查额度、切网关、自检等命令。
+
+<Note>
+  两种方式都需要你的机器上已经装好官方 **Codex 桌面客户端** —— ReCodex 是在它之上工作的,不是替代品。
+</Note>
+
+## 方式一:桌面端(推荐)
 
 <Steps>
+  <Step title="下载安装包">
+    到 [recodex.dev/download](https://recodex.dev/download) 下载对应系统的安装包:
+
+    - Windows:`ReCodex-<版本>-windows-x64-setup.exe`
+    - macOS(Apple Silicon):`ReCodex-<版本>-macos-arm64.dmg`
+
+    页面会自动把你当前系统的那个放在最前面。
+  </Step>
+  <Step title="安装并打开">
+    Windows 安装到 `%LOCALAPPDATA%\Programs\ReCodex`,会创建桌面和开始菜单快捷方式。 打开后它会自动找到你已安装的 Codex 客户端并接管界面。
+  </Step>
   <Step title="登录 ReCodex">
-    访问 [recodex.dev](https://recodex.dev) 并登录你的账户。
+    点右下角的 **Rx** 按钮打开面板,在「账号」页点**登录 ReCodex**。 面板会显示一个授权码,点「打开授权页」在浏览器里确认即可。
   </Step>
-  <Step title="生成授权链接">
-    在账户页面选择 ChatGPT 客户端授权，生成一次性的动态授权链接。
-  </Step>
-  <Step title="在目标设备打开">
-    只在准备使用 ChatGPT 的设备上打开链接，并按页面提示批准授权。
-  </Step>
-  <Step title="返回 ChatGPT">
-    回到 ChatGPT 客户端即可开始使用。状态没有更新时，完全关闭后重新打开客户端。
+  <Step title="重启一次">
+    登录成功后侧边栏会立刻换成你的账号。但官方 Codex 进程是在你登录**之前**启动的, 读不到新写入的配置,所以要重启一次 —— 面板上直接点**立即重启生效**就行。
   </Step>
 </Steps>
 
-<Warning>
-  不要分享动态授权链接、验证码或 ChatGPT 密码。ReCodex 客服不会索取这些信息。
-</Warning>
+登录完成后,你会在官方界面左下角的账号菜单里看到自己的邮箱、套餐和 7 天用量。
 
-## 使用 Codex
+## 方式二:命令行
 
-### 1. 安装 ReCodex CLI
+### 1. 安装
 
-从 [recodex.dev](https://recodex.dev) 下载与你的系统和架构匹配的正式版本，然后验证：
+<CodeGroup>
+
+```bash macOS / Linux
+curl -fsSL https://recodex.dev/install.sh | bash
+```
+
+```powershell Windows
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://recodex.dev/install.ps1 | iex"
+```
+
+</CodeGroup>
+
+脚本会按平台选二进制、**校验 sha256**、装到 PATH 上。校验不通过会直接中止,不会装上去。
+
+验证:
 
 ```bash
 recodex version
 ```
 
-### 2. 安装 Codex
-
-<CodeGroup>
-
-```bash macOS / Linux
-curl -fsSL https://chatgpt.com/codex/install.sh | sh
-```
-
-```powershell Windows
-powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
-```
-
-</CodeGroup>
-
-### 3. 登录设备
+### 2. 登录
 
 ```bash
 recodex login
 ```
 
-终端会显示验证地址与验证码，并尝试打开浏览器。登录 ReCodex 后批准当前设备。
+终端会显示授权码和验证地址,并尝试打开浏览器。在浏览器里批准当前设备即可。
 
-### 4. 验证状态
+### 3. 自检
 
 ```bash
-recodex status
 recodex doctor
 ```
 
-状态正常后运行：
+它会逐项检查:Codex 客户端是否装好、托管配置是否就位、是否已登录、凭据是否可见、网关是否可达、订阅是否有效且 Codex 真的可用。全部通过才算配置正确。
 
-```bash
-codex
-```
+<Warning>
+  Windows 上 `recodex login` 写入的环境变量,**当前终端读不到** —— 需要新开一个终端窗口。 如果你在 IDE 扩展或桌面客户端里用,也要重启它们。
+</Warning>
+
+## 常见的第一个问题
+
+<AccordionGroup>
+  <Accordion title="面板显示「设备数已达上限」">
+    每个账号最多同时授权 3 台设备。到 [设备管理](https://recodex.dev/dashboard/devices) 撤销一台不用的即可 —— 撤销之后**不用重新登录**,客户端的轮询会自己走通。
+  </Accordion>
+
+  <Accordion title="装了但打开后没看到 ReCodex 界面">
+    先确认官方 Codex 桌面客户端已经装好。命令行下可以用 `recodex install check` 检查 —— 它也能识别从应用商店(MSIX)安装的版本。
+  </Accordion>
+
+  <Accordion title="额度显示「数据可能不是最新的」">
+    额度是从服务端取的快照。手动点一次「刷新额度」会立刻更新; 平时数据超过 5 分钟没更新时,客户端也会在后台自动补一次。
+  </Accordion>
+</AccordionGroup>
 
 ## 下一步
 
 <CardGroup cols={2}>
-  <Card title="登录与授权" icon="right-to-bracket" href="/cli/login">
-    查看 ChatGPT 授权链接和 Codex 设备登录的完整说明。
+  <Card title="工作原理" icon="diagram-project" href="/how-it-works">
+    了解登录、托管配置和网关是怎么串起来的。
   </Card>
 
   <Card title="命令参考" icon="terminal" href="/cli/commands">
-    查看全部 ReCodex CLI 命令、参数与环境变量。
+    全部命令行指令、参数与环境变量。
   </Card>
 </CardGroup>
