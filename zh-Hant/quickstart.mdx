@@ -6,82 +6,107 @@ icon: "rocket"
 
 # 快速開始
 
-ReCodex 支援兩種使用方式：透過帳戶頁產生的授權連結直接登入 ChatGPT 客戶端，或安裝 ReCodex CLI 後在 Codex 中使用你的訂閱。
+ReCodex 有兩種用法,**共用同一個帳號和同一份額度**,按你的習慣選一個即可:
 
-## 使用 ChatGPT 客戶端
+- **桌面端(推薦)**:裝一個應用,打開就能用,帳號和額度直接顯示在 Codex 介面裡。
+- **命令列**:習慣終端的話,`recodex` 提供登入、查額度、切網關、自檢等命令。
+
+<Note>
+  兩種方式都需要你的機器上已經裝好官方 **Codex 桌面客戶端** —— ReCodex 是在它之上工作的,不是替代品。
+</Note>
+
+## 方式一:桌面端(推薦)
 
 <Steps>
+  <Step title="下載安裝包">
+    到 [recodex.dev/download](https://recodex.dev/download) 下載對應系統的安裝包:
+
+    - Windows:`ReCodex-<版本>-windows-x64-setup.exe`
+    - macOS(Apple Silicon):`ReCodex-<版本>-macos-arm64.dmg`
+
+    頁面會自動把你目前系統的那個放在最前面。
+  </Step>
+  <Step title="安裝並打開">
+    Windows 安裝到 `%LOCALAPPDATA%\Programs\ReCodex`,會建立桌面和開始功能表捷徑。 打開後它會自動找到你已安裝的 Codex 客戶端並接管介面。
+  </Step>
   <Step title="登入 ReCodex">
-    前往 [recodex.dev](https://recodex.dev) 並登入你的帳戶。
+    點右下角的 **Rx** 按鈕打開面板,在「帳號」頁點**登入 ReCodex**。 面板會顯示一個授權碼,點「打開授權頁」在瀏覽器裡確認即可。
   </Step>
-  <Step title="產生授權連結">
-    在帳戶頁面選擇 ChatGPT 客戶端授權，產生一次性的動態授權連結。
-  </Step>
-  <Step title="在目標裝置開啟">
-    只在準備使用 ChatGPT 的裝置上開啟連結，並依頁面提示批准授權。
-  </Step>
-  <Step title="返回 ChatGPT">
-    回到 ChatGPT 客戶端即可開始使用。狀態沒有更新時，完全關閉後重新開啟客戶端。
+  <Step title="重新啟動一次">
+    登入成功後側邊欄會立刻換成你的帳號。但官方 Codex 行程是在你登入**之前**啟動的, 讀不到新寫入的設定,所以要重新啟動一次 —— 面板上直接點**立即重新啟動生效**就行。
   </Step>
 </Steps>
 
-<Warning>
-  不要分享動態授權連結、驗證碼或 ChatGPT 密碼。ReCodex 客服不會索取這些資訊。
-</Warning>
+登入完成後,你會在官方介面左下角的帳號選單裡看到自己的信箱、方案和 7 天用量。
 
-## 使用 Codex
+## 方式二:命令列
 
-### 1. 安裝 ReCodex CLI
+### 1. 安裝
 
-從 [recodex.dev](https://recodex.dev) 下載與你的系統和架構相符的正式版本，然後驗證：
+<CodeGroup>
+
+```bash macOS / Linux
+curl -fsSL https://recodex.dev/install.sh | bash
+```
+
+```powershell Windows
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://recodex.dev/install.ps1 | iex"
+```
+
+</CodeGroup>
+
+腳本會按平台選二進位、**校驗 sha256**、裝到 PATH 上。校驗不通過會直接中止,不會裝上去。
+
+驗證:
 
 ```bash
 recodex version
 ```
 
-### 2. 安裝 Codex
-
-<CodeGroup>
-
-```bash macOS / Linux
-curl -fsSL https://chatgpt.com/codex/install.sh | sh
-```
-
-```powershell Windows
-powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1 | iex"
-```
-
-</CodeGroup>
-
-### 3. 登入裝置
+### 2. 登入
 
 ```bash
 recodex login
 ```
 
-終端機會顯示驗證網址與驗證碼，並嘗試開啟瀏覽器。登入 ReCodex 後批准目前的裝置。
+終端會顯示授權碼與驗證地址,並嘗試打開瀏覽器。在瀏覽器裡批准目前裝置即可。
 
-### 4. 驗證狀態
+### 3. 自檢
 
 ```bash
-recodex status
 recodex doctor
 ```
 
-狀態正常後執行：
+它會逐項檢查:Codex 客戶端是否裝好、託管設定是否就位、是否已登入、憑據是否可見、網關是否可達、訂閱是否有效且 Codex 真的可用。全部通過才算設定正確。
 
-```bash
-codex
-```
+<Warning>
+  Windows 上 `recodex login` 寫入的環境變數,**目前終端讀不到** —— 需要新開一個終端視窗。 如果你在 IDE 擴充或桌面客戶端裡用,也要重新啟動它們。
+</Warning>
+
+## 常見的第一個問題
+
+<AccordionGroup>
+  <Accordion title="面板顯示「裝置數已達上限」">
+    每個帳號最多同時授權 3 台裝置。到 [裝置管理](https://recodex.dev/dashboard/devices) 撤銷一台不用的即可 —— 撤銷之後**不用重新登入**,客戶端的輪詢會自己走通。
+  </Accordion>
+
+  <Accordion title="裝了但打開後沒看到 ReCodex 介面">
+    先確認官方 Codex 桌面客戶端已經裝好。命令列下可以用 `recodex install check` 檢查 —— 它也能辨識從應用商店(MSIX)安裝的版本。
+  </Accordion>
+
+  <Accordion title="額度顯示「資料可能不是最新的」">
+    額度是從伺服器取的快照。手動點一次「重新整理額度」會立刻更新; 平時資料超過 5 分鐘沒更新時,客戶端也會在背景自動補一次。
+  </Accordion>
+</AccordionGroup>
 
 ## 下一步
 
 <CardGroup cols={2}>
-  <Card title="登入與授權" icon="right-to-bracket" href="/zh-Hant/cli/login">
-    查看 ChatGPT 授權連結和 Codex 裝置登入的完整說明。
+  <Card title="運作原理" icon="diagram-project" href="/zh-Hant/how-it-works">
+    了解登入、託管設定和網關是怎麼串起來的。
   </Card>
 
   <Card title="命令參考" icon="terminal" href="/zh-Hant/cli/commands">
-    查看全部 ReCodex CLI 命令、參數與環境變數。
+    全部命令列指令、參數與環境變數。
   </Card>
 </CardGroup>
