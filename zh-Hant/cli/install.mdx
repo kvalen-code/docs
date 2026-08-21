@@ -6,23 +6,55 @@ icon: "download"
 
 # 安裝 CLI
 
-ReCodex CLI 負責裝置登入、託管設定、狀態檢查和診斷。Codex CLI 是 OpenAI 的開發工具；兩者需要分別安裝。
+命令列和[桌面端](/zh-Hant/quickstart)用的是**同一個帳號、同一份額度**,按習慣選一個即可,也可以兩個都裝。
 
-## 安裝 ReCodex
+<Note>
+  無論用哪種方式,你的機器上都需要先裝好官方 **Codex 桌面客戶端** —— ReCodex 是在它之上工作的。
+</Note>
 
-從 [recodex.dev](https://recodex.dev) 的下載頁面取得與你的作業系統和 CPU 架構相符的正式版本。下載後，把 `recodex`（Windows 為 `recodex.exe`）放入 `PATH` 可存取的目錄。
+## 一鍵安裝(推薦)
+
+<CodeGroup>
+
+```bash macOS / Linux
+curl -fsSL https://recodex.dev/install.sh | bash
+```
+
+```powershell Windows
+powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://recodex.dev/install.ps1 | iex"
+```
+
+</CodeGroup>
+
+腳本做三件事:按平台選二進位、**校驗 sha256**、裝到 PATH 上。
 
 <Warning>
-  不要從聊天記錄、網盤或不明鏡像下載客戶端。正式下載位址和校驗資訊以 recodex.dev 展示為準。
+  校驗不是可選項。`curl | sh` 這種裝法等於把「裝什麼」完全交給網路 —— 所以腳本在雜湊對不上時會**直接中止**,不會退而求其次裝上去。
 </Warning>
 
-驗證安裝：
+可以用環境變數改裝到哪裡:
+
+```bash
+RECODEX_INSTALL_DIR=~/bin curl -fsSL https://recodex.dev/install.sh | bash
+```
+
+驗證:
 
 ```bash
 recodex version
 ```
 
-## 安裝 Codex
+## 手動下載
+
+也可以到 [recodex.dev/download](https://recodex.dev/download) 直接取二進位, 和校驗檔 `SHA256SUMS` 一起下載並自行核對,然後放進 `PATH`。
+
+<Warning>
+  不要從聊天記錄、網盤或未知鏡像取客戶端。正式下載位址與校驗資訊以 recodex.dev 為準。
+</Warning>
+
+## 安裝官方 Codex
+
+ReCodex 需要官方 Codex 客戶端在場。若還沒裝:
 
 <CodeGroup>
 
@@ -36,21 +68,17 @@ powershell -ExecutionPolicy ByPass -c "irm https://chatgpt.com/codex/install.ps1
 
 </CodeGroup>
 
-如果 Windows 獨立安裝程式不可用，也可以依 OpenAI 官方說明使用 npm：
-
-```powershell
-npm install -g @openai/codex
-```
-
-驗證 Codex：
+裝完之後可以讓 ReCodex 確認一遍:
 
 ```bash
-codex --version
+recodex install check
 ```
+
+它能辨識從\*\*應用商店(MSIX)\*\*安裝的版本 —— 那種裝法不在 `Programs` 目錄下,單看常規路徑會誤判成「沒裝」。
 
 ## IDE 與桌面端
 
-Codex IDE 擴充功能和桌面端會讀取同一使用者目錄下的 Codex 設定。完成 `recodex login` 後，請重啟已開啟的 IDE 或桌面端，讓它重新載入環境與託管設定。
+Codex 的 IDE 擴充和桌面端讀的是同一份 `~/.codex` 設定。完成 `recodex login` 後, 請**重新啟動**已經打開的 IDE 或桌面端,讓它重新載入環境變數與託管設定。
 
 ## 升級
 
@@ -58,7 +86,9 @@ Codex IDE 擴充功能和桌面端會讀取同一使用者目錄下的 Codex 設
 recodex update
 ```
 
-`recodex update` 從簽章發布清單安全更新目前的程式。Codex 本身請使用 OpenAI 官方安裝程式或套件管理器升級。
+只接受帶有效簽名的發布清單;簽名驗不過會直接拒絕,不會裝來源不明的二進位。
+
+Codex 本身用 OpenAI 官方安裝器或套件管理器升級。
 
 ## 解除安裝
 
@@ -66,4 +96,4 @@ recodex update
 recodex uninstall
 ```
 
-解除安裝會先撤銷目前裝置、恢復原始 Codex 設定，再刪除 ReCodex 客戶端狀態。程式檔案可以隨後手動刪除。
+會先註銷目前裝置、還原登入前的 Codex 設定,再刪除 ReCodex 的客戶端資料。 你自己的 `~/.codex` 資料(工作階段、記憶、日誌)不受影響。程式檔案可隨後手動刪除。

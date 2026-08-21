@@ -6,46 +6,74 @@ icon: "book-open"
 
 # 簡介
 
-ReCodex 面向希望直接使用 ChatGPT 客戶端和 Codex 開發工具、又不想手動維護 API Key 與複雜設定的使用者。
+ReCodex 讓你在**官方 Codex 客戶端**裡直接用上訂閱額度 —— 不用手工維護 API Key,也不用自己拼設定。
+
+它不是 Codex 的替代品,而是在官方客戶端之上工作:接管帳號與額度顯示,並把請求經由就近網關送到你訂閱對應的帳號。
 
 ## 適合誰
 
-- 需要在 ChatGPT 客戶端中工作，並希望透過一次授權快速開始。
-- 使用 Codex CLI、IDE 擴充功能或桌面端，希望多個入口共用同一套託管設定。
-- 需要集中查看訂閱、裝置、用量與帳單狀態。
-- 遇到授權失效或更換裝置時，希望有清晰的恢復流程。
+- 想在 Codex 裡直接開工,不想折騰 `base_url`、API Key 和網關參數。
+- 在 Codex CLI、IDE 擴充、桌面端之間來回切,希望它們共用同一套設定。
+- 需要隨時看清楚自己還剩多少額度、綁了哪些裝置。
+- 偶爾要切回自己的 ChatGPT 帳號,切回來時不想重新登入一遍。
 
 ## 兩種使用方式
 
+兩種方式**共用同一個帳號和同一份額度**,可以只裝一個,也可以都裝。
+
 <CardGroup cols={2}>
-  <Card title="ChatGPT 客戶端" icon="comments">
-    登入 ReCodex 後取得動態授權連結，在客戶端完成授權。
+  <Card title="桌面端(推薦)" icon="desktop" href="/zh-Hant/quickstart">
+    裝一個應用,打開即用。帳號、額度、網關、開關都在介面裡。
   </Card>
 
-  <Card title="Codex" icon="code">
-    執行 `recodex login`，在瀏覽器批准裝置，由 ReCodex 寫入託管設定。
+  <Card title="命令列" icon="terminal" href="/zh-Hant/cli/install">
+    `recodex` 提供登入、查額度、切網關、自檢等命令,適合習慣終端的人。
   </Card>
 </CardGroup>
 
-## ReCodex 幫你做什麼
+## 能做什麼
 
-ReCodex 負責產生授權入口、管理裝置工作階段、下發 Codex 所需的託管設定，並提供狀態、診斷和去敏日誌工具。你不需要向 ReCodex 提交自己的 ChatGPT 密碼，也不需要手動拼接閘道參數。
+<CardGroup cols={2}>
+  <Card title="額度看得見" icon="chart-simple">
+    帳號與 7 天用量直接顯示在官方介面裡,不用切到網頁查。
+  </Card>
+
+  <Card title="網關加速" icon="bolt">
+    多個線路可實測延遲,一鍵選最快的。
+  </Card>
+
+  <Card title="微信遠端控制" icon="comments">
+    在微信裡發訊息就能讓本機的 Codex 幹活,支援白名單限定誰能觸發。
+  </Card>
+
+  <Card title="介面增強" icon="sliders">
+    會話刪除、Markdown 匯出、對話置中、模型白名單解鎖等十餘項,開關隨時切。
+  </Card>
+
+  <Card title="官方模式" icon="arrow-right-arrow-left">
+    一鍵切回自己的 ChatGPT 帳號;切回來時設定原樣恢復,不用重新登入。
+  </Card>
+
+  <Card title="自動更新" icon="rotate">
+    新版本發布後客戶端內一鍵升級,校驗簽名與雜湊後才替換。
+  </Card>
+</CardGroup>
 
 ## 不會做什麼
 
-- 不會把 ReCodex 描述為 OpenAI 官方產品。
+- 不會把 ReCodex 說成 OpenAI 官方產品。
 - 不承諾無限用量、零中斷或零風險。
-- 不要求你在支援工單中傳送原始金鑰、授權連結或未去敏日誌。
-- 不在文件中公開內部帳號憑證與營運設定。
+- 不會要你在工單裡發送原始金鑰、授權碼或未脫敏日誌。
+- 不會替你保管 ChatGPT 密碼 —— 登入走裝置授權,你在自己的瀏覽器裡批准。
 
 ## 下一步
 
 <CardGroup cols={2}>
   <Card title="快速開始" icon="rocket" href="/zh-Hant/quickstart">
-    完成第一次授權。
+    十分鐘內裝好並登入。
   </Card>
 
   <Card title="運作原理" icon="diagram-project" href="/zh-Hant/how-it-works">
-    了解兩條連接鏈路。
+    了解登入、託管設定和網關怎麼串起來。
   </Card>
 </CardGroup>
