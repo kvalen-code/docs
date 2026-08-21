@@ -62,8 +62,12 @@ ReCodex 需要官方 Codex 客户端在场。若还没装:
 
 **桌面客户端**(桌面端用户装这个):
 
-- **Windows**:官方只通过 Microsoft Store 分发。商店里搜 ChatGPT,或直接执行 `winget install --id 9PLM9XGG6VKS --source msstore`。
-- **macOS**:官方只提供 `ChatGPT.dmg`。我们在下载页放了同一个包的镜像并公布 sha256, 下载慢或连不上官方源时可以用它。
+[recodex.dev/download](https://recodex.dev/download) 的**第 1 步**就是它,两个平台都能点一下直接下载:
+
+- **Windows**:官方只上架 Microsoft Store,没有独立安装包。下载页给的是从商店取出的原包(`.msixbundle`), 下载后双击由系统的「应用安装程序」装上,需要 Windows 10 2004 或更高版本。 ARM64 机器请选页面上的 arm64 版本 —— 架构给错了装不上。
+- **macOS**:官方只提供 `ChatGPT.dmg`,下载页放的是同一个包并公布 sha256。
+
+两个平台的包都只做搬运:不解包、不修改内容、不重新签名。
 
 **命令行版 Codex**(只用终端的话装这个就够):
 
