@@ -9,24 +9,63 @@ icon: "terminal"
 ## 用法
 
 ```text
-recodex [--lang zh|en] [--api URL] <command>
+recodex [--lang zh|en] [--api URL] <命令>
 ```
 
-## 子命令一覽
+## 帳號與狀態
 
 | 命令 | 作用 |
 | --- | --- |
-| `recodex login` | 使用裝置碼登入並寫入託管設定與憑證 |
-| `recodex logout` | 撤銷目前裝置並恢復原始設定 |
-| `recodex uninstall` | 登出、恢復設定並刪除全部 ReCodex 客戶端狀態 |
-| `recodex status` | 查看登入、設定、訂閱和用量狀態 |
-| `recodex refresh` | 不重新登入，重新取得託管設定 |
-| `recodex update` | 從簽章發布清單更新目前的程式 |
-| `recodex doctor` | 診斷 Codex、託管設定與閘道 |
-| `recodex doctor --fix` | 嘗試修復可安全自動修復的問題，再重新診斷 |
-| `recodex doctor --json` | 輸出適合自動化讀取的去敏 JSON |
-| `recodex logs --limit N` | 顯示最近 N 筆去敏診斷記錄，預設 50 |
+| `recodex login` | 瀏覽器完成裝置授權後登入,並寫入託管設定與憑據 |
+| `recodex status` | 登入狀態、簽發時間、目前網關、設定是否託管、網關可達性,並附上額度 |
+| `recodex account [--json]` | 帳號信箱、帳號類型(獨享/共享)與方案名 |
+| `recodex usage [--refresh] [--json]` | 可用額度、已用量、資料時間,以及 5 小時 / 7 天兩個視窗 |
+| `recodex logout` | 註銷此裝置並還原登入前的 Codex 設定 |
+
+<Note>
+  `status` 顯示的「登入」一行以**伺服器答覆**為準:裝置在伺服器被註銷後會顯示「憑據已失效」, 而不是照本機檔案說「是」。網路不通時不會誤判成憑據失效。
+</Note>
+
+## 網關
+
+| 命令 | 作用 |
+| --- | --- |
+| `recodex gateways [list]` | 列出全部網關:延遲、健康狀態,並標出目前選中的 |
+| `recodex gateways test` | 重新測一遍各網關延遲 |
+| `recodex gateways use <id>` | 切到指定網關,例如 `recodex gateways use jp` |
+| `recodex gateways auto` | 自動選延遲最低的健康網關 |
+
+```text
+$ recodex gateways
+jp      日本直連    53ms   healthy
+sg      新加坡直連  31ms   healthy selected
+jpcf    日本CF      63ms   healthy
+sgcf    新加坡CF    45ms   healthy
+```
+
+## 安裝與診斷
+
+| 命令 | 作用 |
+| --- | --- |
+| `recodex install check` | 檢查安裝前提;能辨識從應用商店(MSIX)安裝的 Codex |
+| `recodex install repair` | 修復託管的 Codex 設定 |
+| `recodex doctor` | 逐項體檢:客戶端安裝、託管設定、登入、憑據、網關、訂閱與 Codex 可用性 |
+| `recodex doctor --fix` | 先自動修復能安全修的項,再重新體檢 |
+| `recodex doctor --json` | 同上但輸出 JSON(`schema_version` / `ok` / `checks`),便於指令碼判斷或貼給客服 |
+| `recodex refresh` | 重新拉取託管設定,不用重新登入 |
+| `recodex logs [--limit N]` | 最近 N 條脫敏診斷日誌,預設 50 |
+
+## 維護
+
+| 命令 | 作用 |
+| --- | --- |
+| `recodex update` | 從**簽名**發布清單安全更新目前程式 |
 | `recodex version` | 顯示客戶端版本 |
+| `recodex uninstall` | 註銷、還原設定,然後刪除全部 ReCodex 客戶端資料 |
+
+<Note>
+  `recodex update` 只接受帶有效簽名的發布清單。簽名驗不過就直接拒絕更新, 不會退而求其次裝一個來源不明的二進位。
+</Note>
 
 ## 常用流程
 
@@ -34,16 +73,16 @@ recodex [--lang zh|en] [--api URL] <command>
 # 首次登入
 recodex login
 
-# 檢查狀態
+# 看狀態和額度
 recodex status
 
-# 自動診斷
-recodex doctor
+# 出問題先自檢,能自動修的它會修
+recodex doctor --fix
 
-# 更新託管設定
-recodex refresh
+# 換個更快的網關
+recodex gateways auto
 
-# 安全登出並恢復原設定
+# 退出並還原原設定
 recodex logout
 ```
 
@@ -51,7 +90,7 @@ recodex logout
 
 ### `--lang zh|en`
 
-設定目前命令的輸出語言。預設使用中文。
+設定目前命令的輸出語言。預設中文。
 
 ```bash
 recodex --lang en status
@@ -59,14 +98,19 @@ recodex --lang en status
 
 ### `--api URL`
 
-覆蓋 ReCodex API 根位址，僅用於已獲授權的測試、預發布或自行架設環境。一般使用者不要修改。
+覆蓋 ReCodex API 根位址,僅用於已獲授權的測試或自架環境。一般使用者不要改。
 
 ## 環境變數
 
 | 變數 | 作用 |
 | --- | --- |
-| `RECODEX_LANG` | 預設輸出語言：`zh` 或 `en` |
-| `RECODEX_API` | 覆蓋 API 根位址；一般使用者保持預設 |
+| `RECODEX_LANG` | 預設輸出語言:`zh` 或 `en` |
+| `RECODEX_API` | 覆蓋 API 根位址;一般使用者保持預設 |
+| `RECODEX_KEY` | 登入時由客戶端寫入,Codex 用它存取網關。**不要手動改** |
+
+<Warning>
+  Windows 上 `recodex login` 寫入的 `RECODEX_KEY` 對**已經打開的**終端不可見 —— 需要新開一個終端視窗。這也是為什麼登入後 `doctor` 可能提示憑據問題,而新終端裡一切正常。
+</Warning>
 
 ## 日誌
 
@@ -74,4 +118,8 @@ recodex --lang en status
 recodex logs --limit 50
 ```
 
-日誌輸出會進行去敏，但傳送給支援團隊前仍應檢查其中是否包含專案名稱、檔案路徑或其他不希望分享的資訊。
+輸出是脫敏的 JSON 行,只包含命令名、結果、版本和系統,不含金鑰:
+
+```json
+{"time":"2026-08-20T09:11:24Z","event":"command_finished","command":"doctor","result":"success","version":"1.2.55","os":"windows"}
+```
