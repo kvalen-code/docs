@@ -31,6 +31,16 @@ recodex version
 
 若仍報未安裝,把 `recodex doctor --json` 的輸出發給客服。
 
+### macOS 提示「無法驗證開發者」或「已損毀」
+
+安裝包是 ad-hoc 簽名的(我們還沒有 Apple 開發者帳號做公證),瀏覽器下載會給它打上隔離屬性。
+
+在 Finder 裡**右鍵點 ReCodex → 打開**,或執行:
+
+```bash
+xattr -dr com.apple.quarantine /Applications/ReCodex.app
+```
+
 ## 登入相關
 
 ### `recodex login` 一直等在那裡

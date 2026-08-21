@@ -30,6 +30,14 @@ ReCodex 有两种用法,**共用同一个账号和同一份额度**,按你的习
   </Step>
   <Step title="安装并打开">
     Windows 安装到 `%LOCALAPPDATA%\Programs\ReCodex`,会创建桌面和开始菜单快捷方式。 打开后它会自动找到你已安装的 Codex 客户端并接管界面。
+
+    macOS 上把 ReCodex 拖进「应用程序」即可。首次打开如果提示**无法验证开发者**, 在访达里右键点它选「打开」,或执行:
+
+    ```bash
+    xattr -dr com.apple.quarantine /Applications/ReCodex.app
+    ```
+
+    我们目前还没有 Apple 开发者账号做公证,所以浏览器下载的包会带隔离属性。
   </Step>
   <Step title="登录 ReCodex">
     点右下角的 **Rx** 按钮打开面板,在「账号」页点**登录 ReCodex**。 面板会显示一个授权码,点「打开授权页」在浏览器里确认即可。
